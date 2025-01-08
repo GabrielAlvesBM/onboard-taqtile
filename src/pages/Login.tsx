@@ -40,7 +40,7 @@ const Login = () => {
 
   return (
     <main>
-      <h1 className='login-title'>Bem-vindo(a) à Taqtile!</h1>
+      <h1 className='login-title'>Bem-vindo(a) à Instaq!</h1>
       <form className='login-form' action='#' onSubmit={handleSubmit}>
         <ErrorMsgs errorMsgs={errorMsgs} />
 
