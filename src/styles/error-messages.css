@@ -1,0 +1,7 @@
+.error-messages {
+  max-width: 400px;
+}
+
+.error-message {
+  color: var(--error-message);
+}
