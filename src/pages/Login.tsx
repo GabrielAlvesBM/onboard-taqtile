@@ -3,7 +3,7 @@ import Button from '../components/Button';
 const Login = () => {
   return (
     <main>
-      <h1 className='login-title'>Bem-vindo(a) à Taqtile!</h1>
+      <h1 className='login-title'>Bem-vindo(a) à Instaq!</h1>
       <form className='login-form' action='#'>
         <input
           className='login-input'
