@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Button from '../components/Button';
 import ErrorMsgs from '../components/ErrorMsgs';
 import SuccessMsgs from '../components/SuccessMsgs';
 import { useMutation } from '@apollo/client';
@@ -11,20 +10,16 @@ const Login = () => {
   const [emailInput, setEmailInput] = useState<string>('');
   const [passwordInput, setPasswordInput] = useState<string>('');
 
-  const [mutationLogin] = useMutation(MutationLogin);
-
-  async function login(email: string, password: string) {
-    try {
-      const res = await mutationLogin({ variables: { data: { email: email, password: password } } });
-
-      localStorage.setItem('token', res.data.login.token);
+  const [mutationLogin, { loading }] = useMutation(MutationLogin, {
+    onCompleted: (data) => {
+      localStorage.setItem('token', data.login.token);
       setSuccessMsgs(['Login efetuado com sucesso!']);
-    } catch (error: any) {
+    },
+    onError: (error) => {
       const errorMessage = error.message || 'Ocorreu um erro inesperado.';
-
       setErrorMsgs([errorMessage]);
-    }
-  }
+    },
+  });
 
   function handleEmailChange(event: React.ChangeEvent<HTMLInputElement>) {
     setEmailInput(event.target.value);
@@ -60,7 +55,11 @@ const Login = () => {
     if (newErrorMsgs.length > 0) {
       setErrorMsgs(newErrorMsgs);
     } else {
-      login(emailInput, passwordInput);
+      mutationLogin({
+        variables: {
+          data: { email: emailInput, password: passwordInput },
+        },
+      });
     }
   }
 
@@ -90,7 +89,9 @@ const Login = () => {
           onChange={handlePasswordChange}
         />
 
-        <Button className='login-submit-button' text='Entrar' />
+        <button className='login-submit-button' disabled={loading}>
+          {loading ? 'Carregando...' : 'Entrar'}
+        </button>
       </form>
     </main>
   );
