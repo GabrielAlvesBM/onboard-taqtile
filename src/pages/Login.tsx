@@ -15,12 +15,12 @@ const Login = () => {
     try {
       const res = await mutationLogin({ variables: { email: email, password: password } });
 
-      console.log(res.data.login.token);
+      localStorage.setItem('token', res.data.login.token);
+      console.log(localStorage.getItem('token'));
     } catch (error: any) {
       const errorMessage = error.message || 'Ocorreu um erro inesperado.';
 
       setErrorMsgs([errorMessage]);
-      console.error(errorMessage);
     }
   }
 
