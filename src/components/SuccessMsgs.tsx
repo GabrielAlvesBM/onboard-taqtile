@@ -2,7 +2,7 @@ interface SuccessMsgsProps {
   successMsgs: string[] | null;
 }
 
-const ErrorMsgs: React.FC<SuccessMsgsProps> = ({ successMsgs }) => {
+const SuccessMsgs: React.FC<SuccessMsgsProps> = ({ successMsgs }) => {
   return (
     <>
       {successMsgs && successMsgs.length > 0 && (
@@ -18,4 +18,4 @@ const ErrorMsgs: React.FC<SuccessMsgsProps> = ({ successMsgs }) => {
   );
 };
 
-export default ErrorMsgs;
+export default SuccessMsgs;
