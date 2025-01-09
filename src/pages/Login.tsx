@@ -1,11 +1,28 @@
 import { useState } from 'react';
 import Button from '../components/Button';
 import ErrorMsgs from '../components/ErrorMsgs';
+import { useMutation } from '@apollo/client';
+import { MutationLogin } from '../apollo/mutations/login';
 
 const Login = () => {
   const [errorMsgs, setErrorMsgs] = useState<string[] | null>(null);
   const [emailInput, setEmailInput] = useState<string>('');
   const [passwordInput, setPasswordInput] = useState<string>('');
+
+  const [mutationLogin] = useMutation(MutationLogin);
+
+  async function login(email: string, password: string) {
+    try {
+      const res = await mutationLogin({ variables: { email: email, password: password } });
+
+      console.log(res.data.login.token);
+    } catch (error: any) {
+      const errorMessage = error.message || 'Ocorreu um erro inesperado.';
+
+      setErrorMsgs([errorMessage]);
+      console.error(errorMessage);
+    }
+  }
 
   function handleEmailChange(event: React.ChangeEvent<HTMLInputElement>) {
     setEmailInput(event.target.value);
@@ -40,7 +57,7 @@ const Login = () => {
     if (newErrorMsgs.length > 0) {
       setErrorMsgs(newErrorMsgs);
     } else {
-      console.log('Formulário enviado.');
+      login(emailInput, passwordInput);
     }
   }
 
