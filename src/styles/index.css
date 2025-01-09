@@ -17,6 +17,7 @@
   --primary-color: #6c50f2;
   --background-color: #242424;
   --error-message: #ff4d4d;
+  --success-message: #4dff56;
 }
 
 a {
