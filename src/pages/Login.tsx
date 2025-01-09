@@ -41,6 +41,7 @@ const Login = () => {
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).+$/;
 
     setErrorMsgs(null);
+    setSuccessMsgs(null);
 
     let newErrorMsgs: string[] = [];
 
