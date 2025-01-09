@@ -15,7 +15,7 @@ const Login = () => {
 
   async function login(email: string, password: string) {
     try {
-      const res = await mutationLogin({ variables: { email: email, password: password } });
+      const res = await mutationLogin({ variables: { data: { email: email, password: password } } });
 
       localStorage.setItem('token', res.data.login.token);
       setSuccessMsgs(['Login efetuado com sucesso!']);
