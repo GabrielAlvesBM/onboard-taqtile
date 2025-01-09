@@ -1,5 +1,10 @@
+.success-messages,
 .error-messages {
   max-width: 400px;
+}
+
+.success-message {
+  color: var(--success-message);
 }
 
 .error-message {
