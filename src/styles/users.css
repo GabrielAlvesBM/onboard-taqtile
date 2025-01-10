@@ -1,0 +1,24 @@
+.users-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 7.5px;
+  padding: 0;
+  text-align: left;
+  list-style-type: none;
+  cursor: default;
+}
+
+.users-list-item {
+  padding: 5px 10px;
+  border: 1px solid var(--black-color);
+  border-radius: 5px;
+}
+.users-list-item p {
+  margin: 5px 0;
+}
+
+@media (max-width: 768px) {
+  .users-list {
+    grid-template-columns: 1fr;
+  }
+}

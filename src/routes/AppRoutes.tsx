@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import Login from '../pages/Login';
 import Spinner from '../components/Spinner';
+import Login from '../pages/Login';
+import Users from '../pages/Users';
 
 const AppRoutes: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -26,6 +27,7 @@ const AppRoutes: React.FC = () => {
       {isLoading && <Spinner />}
       <Routes>
         <Route path='/' element={<Login />} />
+        <Route path='/users' element={<Users />} />
       </Routes>
     </>
   );
