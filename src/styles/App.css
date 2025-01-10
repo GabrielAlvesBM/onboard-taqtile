@@ -1,5 +1,6 @@
 @import url('login.css');
 @import url('messages.css');
+@import url('spinners.css');
 
 #root {
   width: 100%;

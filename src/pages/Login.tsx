@@ -89,8 +89,8 @@ const Login = () => {
           onChange={handlePasswordChange}
         />
 
-        <button className='login-submit-button' disabled={loading}>
-          {loading ? 'Carregando...' : 'Entrar'}
+<button className='login-submit-button' disabled={loading}>
+          {loading ? <div className='button-spinner'></div> : 'Entrar'}
         </button>
       </form>
     </main>
