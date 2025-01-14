@@ -7,7 +7,7 @@ type UserListProps = {
   users: User[];
 };
 
-const UsersList: React.FC<UserListProps> = ({ users }) => {
+const UsersTable: React.FC<UserListProps> = ({ users }) => {
   return (
     <table className='users-table'>
       <thead>
@@ -28,4 +28,4 @@ const UsersList: React.FC<UserListProps> = ({ users }) => {
   );
 };
 
-export default UsersList;
+export default UsersTable;

@@ -1,4 +1,4 @@
-import UsersList from '../components/UsersTable';
+import UsersTable from '../components/UsersTable';
 
 const Users = () => {
   const mockData = {
@@ -15,7 +15,7 @@ const Users = () => {
   return (
     <main>
       <h1>Lista de Usuários</h1>
-      <UsersList users={mockData.users.nodes} />
+      <UsersTable users={mockData.users.nodes} />
     </main>
   );
 };
