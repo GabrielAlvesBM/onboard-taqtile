@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Spinner from '../components/Spinner';
 import Login from '../pages/Login';
 import Users from '../pages/Users';
+import Register from '../pages/Register';
 
 const AppRoutes: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -26,8 +27,9 @@ const AppRoutes: React.FC = () => {
     <>
       {isLoading && <Spinner />}
       <Routes>
-        <Route path='/' element={<Login />} />
+        <Route path='/login' element={<Login />} />
         <Route path='/users' element={<Users />} />
+        <Route path='/register' element={<Register />} />
       </Routes>
     </>
   );

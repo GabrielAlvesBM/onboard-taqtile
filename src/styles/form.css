@@ -1,4 +1,4 @@
-.login-form {
+.form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6,7 +6,8 @@
   width: 100%;
 }
 
-.login-input {
+.input,
+.select {
   width: 100%;
   max-width: 250px;
   padding: 15px;
@@ -14,8 +15,12 @@
   border: none;
 }
 
-.login-submit-button {
+.submit-btn {
   width: 100%;
   max-width: 280px;
   padding: 10px 15px;
+}
+
+.select {
+  max-width: 280px;
 }

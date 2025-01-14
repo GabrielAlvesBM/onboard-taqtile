@@ -69,12 +69,12 @@ const Login = () => {
   return (
     <main>
       <h1 className='login-title'>Bem-vindo(a) à Instaq!</h1>
-      <form className='login-form' action='#' onSubmit={handleSubmit}>
+      <form className='form' onSubmit={handleSubmit}>
         <ErrorMsgs errorMsgs={errorMsgs} />
         <SuccessMsgs successMsgs={successMsgs} />
 
         <input
-          className='login-input'
+          className='input'
           id='email'
           type='text'
           placeholder='Email'
@@ -83,7 +83,7 @@ const Login = () => {
           onChange={handleEmailChange}
         />
         <input
-          className='login-input'
+          className='input'
           id='password'
           type='password'
           placeholder='Senha'
@@ -92,7 +92,7 @@ const Login = () => {
           onChange={handlePasswordChange}
         />
 
-        <button className='login-submit-button' disabled={loading}>
+        <button className='submit-btn' disabled={loading}>
           {loading ? <div className='button-spinner'></div> : 'Entrar'}
         </button>
       </form>
