@@ -1,10 +1,12 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ErrorMsgs from '../components/ErrorMsgs';
 import SuccessMsgs from '../components/SuccessMsgs';
 import { useMutation } from '@apollo/client';
 import { MutationLogin } from '../apollo/mutations/login';
 
 const Login = () => {
+  const navigate = useNavigate();
   const [errorMsgs, setErrorMsgs] = useState<string[] | null>(null);
   const [successMsgs, setSuccessMsgs] = useState<string[] | null>(null);
   const [emailInput, setEmailInput] = useState<string>('');
@@ -14,6 +16,7 @@ const Login = () => {
     onCompleted: (data) => {
       localStorage.setItem('token', data.login.token);
       setSuccessMsgs(['Login efetuado com sucesso!']);
+      navigate('/users');
     },
     onError: (error) => {
       const errorMessage = error.message || 'Ocorreu um erro inesperado.';
