@@ -18,6 +18,8 @@
   --background-color: #242424;
   --error-message: #ff4d4d;
   --success-message: #4dff56;
+  --thead-color: #464646;
+  --tr-pair: #2c2c2c;
 }
 
 a {

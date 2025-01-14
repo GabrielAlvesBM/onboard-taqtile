@@ -1,24 +1,28 @@
-.users-list {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 7.5px;
-  padding: 0;
-  text-align: left;
-  list-style-type: none;
+.users-table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  border-radius: 5px;
+  overflow-x: auto;
   cursor: default;
 }
 
-.users-list-item {
-  padding: 5px 10px;
-  border: 1px solid var(--black-color);
-  border-radius: 5px;
-}
-.users-list-item p {
-  margin: 5px 0;
+.users-table th,
+.users-table td {
+  padding: 8px;
+  border: 1px solid var(--white-color);
 }
 
-@media (max-width: 768px) {
-  .users-list {
-    grid-template-columns: 1fr;
+.users-table th {
+  font-weight: bold;
+  background-color: var(--thead-color);
+}
+
+.users-table tr:nth-child(even) {
+  background-color: var(--tr-pair);
+}
+
+@media (max-width: 640px) {
+  .users-table {
+    font-size: 0.85rem;
   }
 }
