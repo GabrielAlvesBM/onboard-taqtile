@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery } from '@apollo/client';
-import { basicListUsers } from '../apollo/querys/basicListUsers';
+import { GET_BASIC_USERS } from '../apollo/querys/basicListUsers';
 import UsersTable from '../components/UsersTable';
 import ErrorMsgs from '../components/ErrorMsgs';
 
@@ -20,7 +20,7 @@ const Users = () => {
   const [usersData, setUsersData] = useState<UserQueryData | null>(null);
   const [limit, setLimit] = useState<number>(50);
 
-  const { loading, fetchMore } = useQuery(basicListUsers, {
+  const { loading, fetchMore } = useQuery(GET_BASIC_USERS, {
     variables: {
       limit: limit,
     },
