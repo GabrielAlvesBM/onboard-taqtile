@@ -18,11 +18,13 @@ const Users = () => {
 
   const [errorMsgs, setErrorMsgs] = useState<string[] | null>(null);
   const [usersData, setUsersData] = useState<UserQueryData | null>(null);
-  const [limit, setLimit] = useState<number>(50);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const limit = 50;
 
-  const { loading, fetchMore } = useQuery(GET_BASIC_USERS, {
+  const { loading } = useQuery(GET_BASIC_USERS, {
     variables: {
       limit: limit,
+      offset: (currentPage - 1) * limit,
     },
     onCompleted: (data) => {
       setUsersData(data);
@@ -33,28 +35,13 @@ const Users = () => {
     },
   });
 
-  function loadMoreUsers(addInLimit: number) {
-    const newLimit = limit + addInLimit;
-    setLimit(newLimit);
+  const handleNextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
 
-    fetchMore({
-      variables: {
-        limit: newLimit,
-      },
-      updateQuery: (prevResult, { fetchMoreResult }) => {
-        if (!fetchMoreResult) {
-          return prevResult;
-        }
-
-        return {
-          users: {
-            ...fetchMoreResult.users,
-            nodes: [...prevResult.users.nodes, ...fetchMoreResult.users.nodes],
-          },
-        };
-      },
-    });
-  }
+  const handlePreviousPage = () => {
+    setCurrentPage(currentPage - 1);
+  };
 
   return (
     <main>
@@ -66,9 +53,15 @@ const Users = () => {
         <>
           <UsersTable users={usersData.users.nodes} />
 
-          <button className='load-more-users-btn' onClick={() => loadMoreUsers(50)} disabled={loading}>
-            {loading ? <div className='button-spinner'></div> : 'Carregar mais 50 usuários'}
-          </button>
+          <nav className='pagination'>
+            <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+              Anterior
+            </button>
+            <span>Página {currentPage}</span>
+            <button onClick={handleNextPage} disabled={usersData.users.nodes.length < limit}>
+              Próxima:
+            </button>
+          </nav>
         </>
       )}
     </main>

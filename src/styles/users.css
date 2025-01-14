@@ -21,7 +21,11 @@
   background-color: var(--tr-pair);
 }
 
-.load-more-users-btn {
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
   margin-top: 10px;
 }
 
