@@ -18,10 +18,11 @@ const Users = () => {
 
   const [errorMsgs, setErrorMsgs] = useState<string[] | null>(null);
   const [usersData, setUsersData] = useState<UserQueryData | null>(null);
+  const [limit, setLimit] = useState<number>(50);
 
-  const { loading } = useQuery(basicListUsers, {
+  const { loading, fetchMore } = useQuery(basicListUsers, {
     variables: {
-      limit: 25,
+      limit: limit,
     },
     onCompleted: (data) => {
       setUsersData(data);
@@ -32,16 +33,46 @@ const Users = () => {
     },
   });
 
+  function loadMoreUsers(addInLimit: number) {
+    const newLimit = limit + addInLimit;
+    setLimit(newLimit);
+
+    fetchMore({
+      variables: {
+        limit: newLimit,
+      },
+      updateQuery: (prevResult, { fetchMoreResult }) => {
+        if (!fetchMoreResult) {
+          return prevResult;
+        }
+
+        return {
+          users: {
+            ...fetchMoreResult.users,
+            nodes: [...prevResult.users.nodes, ...fetchMoreResult.users.nodes],
+          },
+        };
+      },
+    });
+  }
+
   return (
     <main>
       <h1>Lista de Usuários</h1>
       {loading && <div className='button-spinner'></div>}
       <ErrorMsgs errorMsgs={errorMsgs} />
 
-      {usersData && <UsersTable users={usersData.users.nodes} />}
+      {usersData && (
+        <>
+          <UsersTable users={usersData.users.nodes} />
+
+          <button className='load-more-users-btn' onClick={() => loadMoreUsers(50)} disabled={loading}>
+            {loading ? <div className='button-spinner'></div> : 'Carregar mais 50 usuários'}
+          </button>
+        </>
+      )}
     </main>
   );
 };
 
 export default Users;
-

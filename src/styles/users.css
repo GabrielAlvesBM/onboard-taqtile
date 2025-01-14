@@ -21,6 +21,10 @@
   background-color: var(--tr-pair);
 }
 
+.load-more-users-btn {
+  margin-top: 10px;
+}
+
 @media (max-width: 640px) {
   .users-table {
     font-size: 0.85rem;
