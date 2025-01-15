@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { validateRegisterForm } from '../utils/validation';
 import ErrorMsgs from '../components/ErrorMsgs';
-import BackButton from '../components/BackButton';
+import NavigateButton from '../components/NavigateButton';
 
 enum Roles {
   USER = 'user',
@@ -133,7 +133,7 @@ const Register = () => {
         <button className='submit-btn'>Registrar</button>
       </form>
 
-      <BackButton />
+      <NavigateButton to='/' text="Login" />
     </main>
   );
 };
