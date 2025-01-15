@@ -3,6 +3,15 @@ enum Roles {
   ADMIN = 'admin',
 }
 
+interface RegisterForm {
+  name: string;
+  email: string;
+  password: string;
+  phone: string;
+  birthDate: string;
+  role: Roles | '';
+}
+
 export const validateEmail = (email: string): string | null => {
   if (!email) {
     return 'Insira um Email.';
@@ -83,10 +92,7 @@ export const validateRole = (role: string): string | null => {
   return null;
 };
 
-export const validateLoginForm = (
-  email: string,
-  password: string,
-): Record<string, string> => {
+export const validateLoginForm = (email: string, password: string): Record<string, string> => {
   const errors: Record<string, string> = {};
 
   const emailError = validateEmail(email);
@@ -102,42 +108,35 @@ export const validateLoginForm = (
   return errors;
 };
 
-export const validateRegisterForm = (
-  name: string,
-  email: string,
-  password: string,
-  phone: string,
-  birthData: string,
-  role: string,
-): Record<string, string> => {
+export const validateRegisterForm = (formData: RegisterForm): Record<string, string> => {
   const errors: Record<string, string> = {};
 
-  const nameError = validateName(name);
+  const nameError = validateName(formData.name);
   if (nameError) {
     errors.name = nameError;
   }
 
-  const emailError = validateEmail(email);
+  const emailError = validateEmail(formData.email);
   if (emailError) {
     errors.email = emailError;
   }
 
-  const passwordError = validatePassword(password);
+  const passwordError = validatePassword(formData.password);
   if (passwordError) {
     errors.password = passwordError;
   }
 
-  const phoneError = validatePhone(phone);
+  const phoneError = validatePhone(formData.phone);
   if (phoneError) {
     errors.phone = phoneError;
   }
 
-  const birthDataError = validateBirthData(birthData);
+  const birthDataError = validateBirthData(formData.birthDate);
   if (birthDataError) {
     errors.birthDate = birthDataError;
   }
 
-  const roleError = validateRole(role);
+  const roleError = validateRole(formData.role);
   if (roleError) {
     errors.role = roleError;
   }

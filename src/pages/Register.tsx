@@ -36,14 +36,7 @@ const Register = () => {
   function validateForm(): boolean {
     setErrorMsgs({});
 
-    const errors = validateRegisterForm(
-      formData.name,
-      formData.email,
-      formData.password,
-      formData.phone,
-      formData.birthDate,
-      formData.role,
-    );
+    const errors = validateRegisterForm(formData);
 
     setErrorMsgs(errors);
     return Object.keys(errors).length === 0;
@@ -133,7 +126,7 @@ const Register = () => {
         <button className='submit-btn'>Registrar</button>
       </form>
 
-      <NavigateButton to='/' text="Login" />
+      <NavigateButton to='/' text='Login' />
     </main>
   );
 };
