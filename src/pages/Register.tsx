@@ -16,7 +16,7 @@ interface FormData {
 }
 
 const Register = () => {
-  const [errorMsgs, setErrorMsgs] = useState<string[] | null>(null);
+  const [errorMsgs, setErrorMsgs] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
@@ -32,48 +32,48 @@ const Register = () => {
   }
 
   function validateForm(): boolean {
-    let newErrorMsgs: string[] = [];
-    setErrorMsgs([]);
+    const newErrorMsgs: Record<string, string> = {};
+    setErrorMsgs({});
 
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).+$/;
     const phoneRegex = /^\d{10,11}$/;
 
     if (!formData.name) {
-      newErrorMsgs.push('Insira um nome.');
+      newErrorMsgs.name = 'Insira um nome.';
     } else if (!/^\w+\s+\w+/.test(formData.name)) {
-      newErrorMsgs.push('O nome deve conter pelo menos 2 palavras.');
+      newErrorMsgs.name = 'O nome deve conter pelo menos 2 palavras.';
     }
 
     if (!formData.email) {
-      newErrorMsgs.push('Insira um Email.');
+      newErrorMsgs.email = 'Insira um Email.';
     } else if (!emailRegex.test(formData.email)) {
-      newErrorMsgs.push("Email inválido. O formato correto é 'usuario@dominio.com'.");
+      newErrorMsgs.email = "Email inválido. O formato correto é 'usuario@dominio.com'.";
     }
 
     if (formData.password.length < 7) {
-      newErrorMsgs.push('Senha inválida. Deve conter pelo menos 7 caracteres.');
+      newErrorMsgs.password = 'Senha inválida. Deve conter pelo menos 7 caracteres.';
     } else if (!passwordRegex.test(formData.password)) {
-      newErrorMsgs.push('Senha inválida. Deve conter pelo menos 1 letra e 1 número.');
+      newErrorMsgs.password = 'Senha inválida. Deve conter pelo menos 1 letra e 1 número.';
     }
 
     if (!phoneRegex.test(formData.phone)) {
-      newErrorMsgs.push('O telefone deve conter apenas dígitos e ter 10 ou 11 números.');
+      newErrorMsgs.phone = 'O telefone deve conter apenas dígitos e ter 10 ou 11 números.';
     }
 
     const today = new Date();
     const birthDate = new Date(formData.birthDate);
     const minDate = new Date('1900-01-01');
     if (!formData.birthDate) {
-      newErrorMsgs.push('Insira uma data de nascimento.');
+      newErrorMsgs.birthDate = 'Insira uma data de nascimento.';
     } else if (birthDate > today) {
-      newErrorMsgs.push('A data de nascimento não pode ser no futuro.');
+      newErrorMsgs.birthDate = 'A data de nascimento não pode ser no futuro.';
     } else if (birthDate < minDate) {
-      newErrorMsgs.push('A data de nascimento não pode ser anterior a 01/01/1900.');
+      newErrorMsgs.birthDate = 'A data de nascimento não pode ser anterior a 01/01/1900.';
     }
 
     if (!Object.values(Roles).includes(formData.role as Roles)) {
-      newErrorMsgs.push('Selecione um cargo válido.');
+      newErrorMsgs.roles = 'Selecione um cargo válido.';
     }
 
     setErrorMsgs(newErrorMsgs);
@@ -89,65 +89,81 @@ const Register = () => {
     }
 
     console.log('Dados enviados: ', formData);
+    console.log(Object.entries(errorMsgs));
     console.error('erro');
   }
 
   return (
     <main>
       <h1>Adicionar Novo Usuário:</h1>
-      {errorMsgs && <ErrorMsgs errorMsgs={errorMsgs} />}
-
       <form className='form' onSubmit={handleSubmit}>
-        <input
-          className='input'
-          id='name'
-          type='text'
-          placeholder='Nome Completo'
-          autoComplete='off'
-          value={formData.name}
-          onChange={handleInputChange}
-        />
-        <input
-          className='input'
-          id='email'
-          type='text'
-          placeholder='Email'
-          autoComplete='off'
-          value={formData.email}
-          onChange={handleInputChange}
-        />
-        <input
-          className='input'
-          id='password'
-          type='password'
-          placeholder='Senha'
-          autoComplete='off'
-          value={formData.password}
-          onChange={handleInputChange}
-        />
-        <input
-          className='input'
-          id='phone'
-          type='text'
-          placeholder='Telefone'
-          autoComplete='off'
-          value={formData.phone}
-          onChange={handleInputChange}
-        />
-        <input
-          className='input'
-          id='birthDate'
-          type='date'
-          placeholder='Data de Nascimento'
-          autoComplete='off'
-          value={formData.birthDate}
-          onChange={handleInputChange}
-        />
-
-        <select className='select' id='role' value={formData.role} onChange={handleInputChange}>
-          <option value='user'>User</option>
-          <option value='admin'>Admin</option>
-        </select>
+        <div className='input-div'>
+          <input
+            className='input'
+            id='name'
+            type='text'
+            placeholder='Nome Completo'
+            autoComplete='off'
+            value={formData.name}
+            onChange={handleInputChange}
+          />
+          {errorMsgs.name && <ErrorMsgs errorMsgs={{ name: errorMsgs.name }} />}
+        </div>
+        <div className='input-div'>
+          <input
+            className='input'
+            id='email'
+            type='text'
+            placeholder='Email'
+            autoComplete='off'
+            value={formData.email}
+            onChange={handleInputChange}
+          />
+          {errorMsgs.email && <ErrorMsgs errorMsgs={{ email: errorMsgs.email }} />}
+        </div>
+        <div className='input-div'>
+          <input
+            className='input'
+            id='password'
+            type='password'
+            placeholder='Senha'
+            autoComplete='off'
+            value={formData.password}
+            onChange={handleInputChange}
+          />
+          {errorMsgs.password && <ErrorMsgs errorMsgs={{ password: errorMsgs.password }} />}
+        </div>
+        <div className='input-div'>
+          <input
+            className='input'
+            id='phone'
+            type='text'
+            placeholder='Telefone'
+            autoComplete='off'
+            value={formData.phone}
+            onChange={handleInputChange}
+          />
+          {errorMsgs.phone && <ErrorMsgs errorMsgs={{ phone: errorMsgs.phone }} />}
+        </div>
+        <div className='input-div'>
+          <input
+            className='input'
+            id='birthDate'
+            type='date'
+            placeholder='Data de Nascimento'
+            autoComplete='off'
+            value={formData.birthDate}
+            onChange={handleInputChange}
+          />
+          {errorMsgs.birthDate && <ErrorMsgs errorMsgs={{ birthDate: errorMsgs.birthDate }} />}
+        </div>
+        <div className='input-div'>
+          <select className='select' id='role' value={formData.role} onChange={handleInputChange}>
+            <option value='user'>User</option>
+            <option value='admin'>Admin</option>
+          </select>
+          {errorMsgs.role && <ErrorMsgs errorMsgs={{ role: errorMsgs.role }} />}
+        </div>
 
         <button className='submit-btn'>Registrar</button>
       </form>

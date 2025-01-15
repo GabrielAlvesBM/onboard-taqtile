@@ -1,6 +1,6 @@
 .success-messages,
 .error-messages {
-  max-width: 400px;
+  max-width: 275px;
   margin: 0 auto;
 }
 
@@ -9,5 +9,8 @@
 }
 
 .error-message {
+  margin: 0px;
+  text-align: left;
+  font-size: 0.85rem;
   color: var(--error-message);
 }

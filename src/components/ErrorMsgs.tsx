@@ -1,14 +1,14 @@
 interface ErrorMsgsProps {
-  errorMsgs: string[] | null;
+  errorMsgs: Record<string, string> | null;
 }
 
 const ErrorMsgs: React.FC<ErrorMsgsProps> = ({ errorMsgs }) => {
   return (
     <>
-      {errorMsgs && errorMsgs.length > 0 && (
+      {errorMsgs && Object.keys(errorMsgs).length > 0 && (
         <div className='error-messages'>
-          {errorMsgs.map((msg, index) => (
-            <p key={index} className='error-message'>
+          {Object.entries(errorMsgs).map(([key, msg]) => (
+            <p key={key} className='error-message'>
               {msg}
             </p>
           ))}

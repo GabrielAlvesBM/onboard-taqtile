@@ -7,7 +7,7 @@ import { MutationLogin } from '../apollo/mutations/login';
 
 const Login = () => {
   const navigate = useNavigate();
-  const [errorMsgs, setErrorMsgs] = useState<string[] | null>(null);
+  const [errorMsgs, setErrorMsgs] = useState<Record<string, string>>({});
   const [successMsgs, setSuccessMsgs] = useState<string[] | null>(null);
   const [emailInput, setEmailInput] = useState<string>('');
   const [passwordInput, setPasswordInput] = useState<string>('');
@@ -20,7 +20,7 @@ const Login = () => {
     },
     onError: (error) => {
       const errorMessage = error.message || 'Ocorreu um erro inesperado.';
-      setErrorMsgs([errorMessage]);
+      setErrorMsgs({ gql: errorMessage });
     },
   });
 
@@ -38,24 +38,24 @@ const Login = () => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).+$/;
 
-    setErrorMsgs(null);
+    setErrorMsgs({});
     setSuccessMsgs(null);
 
-    let newErrorMsgs: string[] = [];
+    let newErrorMsgs: Record<string, string> = {};
 
     if (!emailInput) {
-      newErrorMsgs.push('Insira um Email.');
+      newErrorMsgs.email = 'Insira um Email.';
     } else if (!emailRegex.test(emailInput)) {
-      newErrorMsgs.push("Email inválido. O formato correto é 'usuario@dominio.com'.");
+      newErrorMsgs.email = "Email inválido. O formato correto é 'usuario@dominio.com'.";
     }
 
     if (passwordInput.length < 7) {
-      newErrorMsgs.push('Senha inválida. Deve conter pelo menos 7 caracteres.');
+      newErrorMsgs.password = 'Senha inválida. Deve conter pelo menos 7 caracteres.';
     } else if (!passwordRegex.test(passwordInput)) {
-      newErrorMsgs.push('Senha inválida. Deve conter pelo menos 1 letra e 1 número.');
+      newErrorMsgs.password = 'Senha inválida. Deve conter pelo menos 1 letra e 1 número.';
     }
 
-    if (newErrorMsgs.length > 0) {
+    if (Object.keys(newErrorMsgs).length > 0) {
       setErrorMsgs(newErrorMsgs);
     } else {
       mutationLogin({
@@ -70,28 +70,34 @@ const Login = () => {
     <main>
       <h1 className='login-title'>Bem-vindo(a) à Instaq!</h1>
       <form className='form' onSubmit={handleSubmit}>
-        <ErrorMsgs errorMsgs={errorMsgs} />
         <SuccessMsgs successMsgs={successMsgs} />
 
-        <input
-          className='input'
-          id='email'
-          type='text'
-          placeholder='Email'
-          autoComplete='off'
-          value={emailInput}
-          onChange={handleEmailChange}
-        />
-        <input
-          className='input'
-          id='password'
-          type='password'
-          placeholder='Senha'
-          autoComplete='off'
-          value={passwordInput}
-          onChange={handlePasswordChange}
-        />
+        <div className='input-div'>
+          <input
+            className='input'
+            id='email'
+            type='text'
+            placeholder='Email'
+            autoComplete='off'
+            value={emailInput}
+            onChange={handleEmailChange}
+          />
+          {errorMsgs.email && <ErrorMsgs errorMsgs={{ email: errorMsgs.email }} />}
+        </div>
+        <div className='input-div'>
+          <input
+            className='input'
+            id='password'
+            type='password'
+            placeholder='Senha'
+            autoComplete='off'
+            value={passwordInput}
+            onChange={handlePasswordChange}
+          />
+          {errorMsgs.password && <ErrorMsgs errorMsgs={{ password: errorMsgs.password }} />}
+        </div>
 
+        {errorMsgs.gql && <ErrorMsgs errorMsgs={{ gql: errorMsgs.gql }} />}
         <button className='submit-btn' disabled={loading}>
           {loading ? <div className='button-spinner'></div> : 'Entrar'}
         </button>
