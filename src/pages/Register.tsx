@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { validateRegisterForm } from '../utils/validation';
 import ErrorMsgs from '../components/ErrorMsgs';
 import BackButton from '../components/BackButton';
 
@@ -33,52 +34,19 @@ const Register = () => {
   }
 
   function validateForm(): boolean {
-    const newErrorMsgs: Record<string, string> = {};
     setErrorMsgs({});
 
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d).+$/;
-    const phoneRegex = /^\d{10,11}$/;
+    const errors = validateRegisterForm(
+      formData.name,
+      formData.email,
+      formData.password,
+      formData.phone,
+      formData.birthDate,
+      formData.role,
+    );
 
-    if (!formData.name) {
-      newErrorMsgs.name = 'Insira um nome.';
-    } else if (!/^\w+\s+\w+/.test(formData.name)) {
-      newErrorMsgs.name = 'O nome deve conter pelo menos 2 palavras.';
-    }
-
-    if (!formData.email) {
-      newErrorMsgs.email = 'Insira um Email.';
-    } else if (!emailRegex.test(formData.email)) {
-      newErrorMsgs.email = "Email inválido. O formato correto é 'usuario@dominio.com'.";
-    }
-
-    if (formData.password.length < 7) {
-      newErrorMsgs.password = 'Senha inválida. Deve conter pelo menos 7 caracteres.';
-    } else if (!passwordRegex.test(formData.password)) {
-      newErrorMsgs.password = 'Senha inválida. Deve conter pelo menos 1 letra e 1 número.';
-    }
-
-    if (!phoneRegex.test(formData.phone)) {
-      newErrorMsgs.phone = 'O telefone deve conter apenas dígitos e ter 10 ou 11 números.';
-    }
-
-    const today = new Date();
-    const birthDate = new Date(formData.birthDate);
-    const minDate = new Date('1900-01-01');
-    if (!formData.birthDate) {
-      newErrorMsgs.birthDate = 'Insira uma data de nascimento.';
-    } else if (birthDate > today) {
-      newErrorMsgs.birthDate = 'A data de nascimento não pode ser no futuro.';
-    } else if (birthDate < minDate) {
-      newErrorMsgs.birthDate = 'A data de nascimento não pode ser anterior a 01/01/1900.';
-    }
-
-    if (!Object.values(Roles).includes(formData.role as Roles)) {
-      newErrorMsgs.roles = 'Selecione um cargo válido.';
-    }
-
-    setErrorMsgs(newErrorMsgs);
-    return Object.keys(newErrorMsgs).length === 0;
+    setErrorMsgs(errors);
+    return Object.keys(errors).length === 0;
   }
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
