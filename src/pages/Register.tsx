@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import ErrorMsgs from '../components/ErrorMsgs';
+import BackButton from '../components/BackButton';
 
 enum Roles {
   USER = 'user',
@@ -163,6 +164,8 @@ const Register = () => {
 
         <button className='submit-btn'>Registrar</button>
       </form>
+
+      <BackButton />
     </main>
   );
 };
