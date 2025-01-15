@@ -87,10 +87,6 @@ const Register = () => {
       console.log('Dados enviados: ', formData);
       return;
     }
-
-    console.log('Dados enviados: ', formData);
-    console.log(Object.entries(errorMsgs));
-    console.error('erro');
   }
 
   return (

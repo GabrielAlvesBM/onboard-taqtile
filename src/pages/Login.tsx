@@ -4,6 +4,7 @@ import ErrorMsgs from '../components/ErrorMsgs';
 import SuccessMsgs from '../components/SuccessMsgs';
 import { useMutation } from '@apollo/client';
 import { MutationLogin } from '../apollo/mutations/login';
+import RegisterPageButton from '../components/RegisterPageButton';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -68,6 +69,8 @@ const Login = () => {
 
   return (
     <main>
+      <RegisterPageButton />
+
       <h1 className='login-title'>Bem-vindo(a) à Instaq!</h1>
       <form className='form' onSubmit={handleSubmit}>
         <SuccessMsgs successMsgs={successMsgs} />

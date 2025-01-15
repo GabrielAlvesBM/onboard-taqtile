@@ -1,0 +1,18 @@
+.register-page-button {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  padding: 0;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  background-color: var(--black-color);
+}
+
+.register-page-button span {
+  transform: translate(0.5px, -1.25px);
+}
