@@ -7,6 +7,7 @@ import RegisterPageButton from '../components/RegisterPageButton';
 
 const Users = () => {
   type User = {
+    id: string;
     name: string;
     email: string;
   };
@@ -53,6 +54,7 @@ const Users = () => {
 
       {usersData && (
         <>
+          {console.log(usersData)}
           <UsersTable users={usersData.users.nodes} />
 
           <nav className='pagination'>
