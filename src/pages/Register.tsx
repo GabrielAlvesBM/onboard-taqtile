@@ -1,5 +1,8 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { validateRegisterForm } from '../utils/validation';
+import { useMutation } from '@apollo/client';
+import { CREATE_USER } from '../apollo/mutations/createUser';
 import ErrorMsgs from '../components/ErrorMsgs';
 import NavigateButton from '../components/NavigateButton';
 
@@ -18,6 +21,7 @@ interface FormData {
 }
 
 const Register = () => {
+  const navigate = useNavigate();
   const [errorMsgs, setErrorMsgs] = useState<Record<string, string>>({});
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -33,6 +37,17 @@ const Register = () => {
     setFormData({ ...formData, [id]: value });
   }
 
+  const [mutationRegister, { loading }] = useMutation(CREATE_USER, {
+    onCompleted: () => {
+      navigate('/users');
+    },
+
+    onError: (error) => {
+      const errorMessage = error.message || 'Ocorreu um erro inesperado.';
+      setErrorMsgs({ gql: errorMessage });
+    },
+  });
+
   function validateForm(): boolean {
     setErrorMsgs({});
 
@@ -46,7 +61,18 @@ const Register = () => {
     event.preventDefault();
 
     if (validateForm()) {
-      console.log('Dados enviados: ', formData);
+      mutationRegister({
+        variables: {
+          data: {
+            name: formData.name,
+            email: formData.email,
+            password: formData.password,
+            phone: formData.phone,
+            birthDate: formData.birthDate,
+            role: formData.role,
+          },
+        },
+      });
       return;
     }
   }
@@ -123,7 +149,10 @@ const Register = () => {
           {errorMsgs.role && <ErrorMsgs errorMsgs={{ role: errorMsgs.role }} />}
         </div>
 
-        <button className='submit-btn'>Registrar</button>
+        {errorMsgs.gql && <ErrorMsgs errorMsgs={{ gql: errorMsgs.gql }} />}
+        <button className='submit-btn' disabled={loading}>
+          {loading ? <div className='button-spinner'></div> : 'Registrar'}
+        </button>
       </form>
 
       <NavigateButton to='/login' text='Login' />
