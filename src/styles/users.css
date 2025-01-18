@@ -6,6 +6,12 @@
   cursor: default;
 }
 
+.users-table tr:hover,
+.users-table tr:nth-child(even):hover {
+  background-color: var(--thead-color);
+  cursor: pointer;
+}
+
 .users-table th,
 .users-table td {
   padding: 8px;
@@ -15,6 +21,7 @@
 .users-table th {
   font-weight: bold;
   background-color: var(--thead-color);
+  cursor: default;
 }
 
 .users-table tr:nth-child(even) {
