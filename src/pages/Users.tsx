@@ -17,7 +17,7 @@ const Users = () => {
     };
   };
 
-  const [errorMsgs, setErrorMsgs] = useState<string[] | null>(null);
+  const [errorMsgs, setErrorMsgs] = useState<Record<string, string>>({});
   const [usersData, setUsersData] = useState<UserQueryData | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const limit = 50;
@@ -32,7 +32,7 @@ const Users = () => {
     },
     onError: (error) => {
       const errorMessage = error.message || 'Ocorreu um erro inesperado.';
-      setErrorMsgs([errorMessage]);
+      setErrorMsgs({ gql: errorMessage });
     },
   });
 
@@ -49,7 +49,7 @@ const Users = () => {
       <RegisterPageButton />
       <h1>Lista de Usuários</h1>
       {loading && <div className='button-spinner'></div>}
-      <ErrorMsgs errorMsgs={errorMsgs} />
+      {errorMsgs.gql && <ErrorMsgs errorMsgs={{ gql: errorMsgs.gql }} />}
 
       {usersData && (
         <>
