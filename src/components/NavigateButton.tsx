@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom';
 interface NavigateButtonProps {
   to: string;
   text: string;
+  className?: string;
 }
 
-const NavigateButton: React.FC<NavigateButtonProps> = ({ to, text }) => {
+const NavigateButton: React.FC<NavigateButtonProps> = ({ to, text, className }) => {
   const navigate = useNavigate();
 
   function handleNavigate() {
@@ -13,7 +14,7 @@ const NavigateButton: React.FC<NavigateButtonProps> = ({ to, text }) => {
   }
 
   return (
-    <button className="navigate-btn" onClick={handleNavigate}>
+    <button className={`navigate-btn ${className || ''}`} onClick={handleNavigate}>
       {text}
     </button>
   );

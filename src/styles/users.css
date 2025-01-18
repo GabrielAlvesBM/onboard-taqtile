@@ -34,3 +34,22 @@
     font-size: 0.85rem;
   }
 }
+
+.user-details {
+  position: relative;
+  width: 100%;
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  text-align: left;
+  background-color: var(--back-color);
+}
+
+.user-details-back-btn {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  max-width: 200px;
+  padding: 5px;
+  border-radius: 8px 8px 0px 0px;
+}
