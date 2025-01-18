@@ -5,6 +5,7 @@ import { validateLoginForm } from '../utils/validation';
 import { useMutation } from '@apollo/client';
 import { MutationLogin } from '../apollo/mutations/login';
 import RegisterPageButton from '../components/RegisterPageButton';
+import { Title, Form, Button } from './login.styles';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -56,11 +57,10 @@ const Login = () => {
     <main>
       <RegisterPageButton />
 
-      <h1 className='login-title'>Bem-vindo(a) à Instaq!</h1>
-      <form className='form' onSubmit={handleSubmit}>
-        <div className='input-div'>
+      <Title>Bem-vindo(a) à Instaq!</Title>
+      <Form onSubmit={handleSubmit}>
+        <div>
           <input
-            className='input'
             id='email'
             type='text'
             placeholder='Email'
@@ -70,9 +70,8 @@ const Login = () => {
           />
           {errorMsgs.email && <ErrorMsgs errorMsgs={{ email: errorMsgs.email }} />}
         </div>
-        <div className='input-div'>
+        <div>
           <input
-            className='input'
             id='password'
             type='password'
             placeholder='Senha'
@@ -84,10 +83,10 @@ const Login = () => {
         </div>
 
         {errorMsgs.gql && <ErrorMsgs errorMsgs={{ gql: errorMsgs.gql }} />}
-        <button className='submit-btn' disabled={loading}>
+        <Button disabled={loading}>
           {loading ? <div className='button-spinner'></div> : 'Entrar'}
-        </button>
-      </form>
+        </Button>
+      </Form>
     </main>
   );
 };

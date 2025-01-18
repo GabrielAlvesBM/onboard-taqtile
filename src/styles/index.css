@@ -18,6 +18,8 @@
   --background-color: #242424;
   --error-message: #ff4d4d;
   --success-message: #4dff56;
+  --input-color: #121212;
+  --button-background: #1a1a1a;
   --thead-color: #464646;
   --tr-pair: #2c2c2c;
   --back-color: #292929;
@@ -51,7 +53,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--button-background);
   cursor: pointer;
   transition: border-color 0.25s;
 }
