@@ -126,7 +126,7 @@ const Register = () => {
         <button className='submit-btn'>Registrar</button>
       </form>
 
-      <NavigateButton to='/' text='Login' />
+      <NavigateButton to='/login' text='Login' />
     </main>
   );
 };

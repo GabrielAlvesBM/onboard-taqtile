@@ -3,6 +3,7 @@ import { useQuery } from '@apollo/client';
 import { GET_BASIC_USERS } from '../apollo/querys/basicListUsers';
 import UsersTable from '../components/UsersTable';
 import ErrorMsgs from '../components/ErrorMsgs';
+import RegisterPageButton from '../components/RegisterPageButton';
 
 const Users = () => {
   type User = {
@@ -45,6 +46,7 @@ const Users = () => {
 
   return (
     <main>
+      <RegisterPageButton />
       <h1>Lista de Usuários</h1>
       {loading && <div className='button-spinner'></div>}
       <ErrorMsgs errorMsgs={errorMsgs} />
