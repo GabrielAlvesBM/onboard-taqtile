@@ -52,7 +52,7 @@ export const validateName = (name: string): string | null => {
     return 'Insira um nome.';
   }
 
-  const nameRegex = /^[A-Za-zÀ-ÿ]+(?:\s+[A-Za-zÀ-ÿ]+)+$/;
+  const nameRegex = /^[A-Za-zÀ-ÿ]+(?:\s+[A-Za-zÀ-ÿ]+)/;
   if (!nameRegex.test(name)) {
     return 'O nome deve conter pelo menos 2 palavras.';
   }
