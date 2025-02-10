@@ -21,8 +21,8 @@
 }
 
 .button-spinner {
-  width: 18px;
-  height: 18px;
+  width: 18px !important;
+  height: 18px !important;
   margin: 0 auto;
   border: 3px solid rgba(255, 255, 255, 0.3);
   border-top: 3px solid var(--white-color);
