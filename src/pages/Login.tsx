@@ -5,7 +5,7 @@ import { validateLoginForm } from '../utils/validation';
 import { useMutation } from '@apollo/client';
 import { MutationLogin } from '../apollo/mutations/login';
 import RegisterPageButton from '../components/RegisterPageButton';
-import { Title, Form, Button } from './login.styles';
+import { Title, Form, Button } from '../styles/global-styles';
 
 const Login = () => {
   const navigate = useNavigate();
