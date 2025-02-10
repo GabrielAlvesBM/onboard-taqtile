@@ -5,6 +5,7 @@ import { useMutation } from '@apollo/client';
 import { CREATE_USER } from '../apollo/mutations/createUser';
 import ErrorMsgs from '../components/ErrorMsgs';
 import NavigateButton from '../components/NavigateButton';
+import { Title, Form, Button } from '../styles/global-styles';
 
 enum Roles {
   USER = 'user',
@@ -79,8 +80,8 @@ const Register = () => {
 
   return (
     <main>
-      <h1>Adicionar Novo Usuário:</h1>
-      <form className='form' onSubmit={handleSubmit}>
+      <Title>Adicionar Novo Usuário:</Title>
+      <Form className='form' onSubmit={handleSubmit}>
         <div className='input-div'>
           <input
             className='input'
@@ -150,10 +151,10 @@ const Register = () => {
         </div>
 
         {errorMsgs.gql && <ErrorMsgs errorMsgs={{ gql: errorMsgs.gql }} />}
-        <button className='submit-btn' disabled={loading}>
+        <Button className='submit-btn' disabled={loading}>
           {loading ? <div className='button-spinner'></div> : 'Registrar'}
-        </button>
-      </form>
+        </Button>
+      </Form>
 
       <NavigateButton to='/login' text='Login' />
     </main>
